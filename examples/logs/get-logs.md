@@ -1,5 +1,5 @@
 ```javascript
-import * as tomba from "https://deno.land/x/tomba/mod.ts";
+import * as tomba from "https://deno.land/x/tombaio/mod.ts";
 
 // Init SDK
 let client = new tomba.Client();

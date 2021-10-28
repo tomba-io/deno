@@ -31,7 +31,7 @@ enable all the data fields and additional request volumes see
 ## Installation
 
 ```javascript
-import * as tomba from "https://deno.land/x/tomba/mod.ts";
+import * as tomba from "https://deno.land/x/tombaio/mod.ts";
 ```
 
 ## Usage
