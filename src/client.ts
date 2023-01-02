@@ -7,7 +7,7 @@ export interface Payload {
 export class Client {
   endpoint: string = "https://api.tomba.io/v1";
   headers: Payload = {
-    "x-sdk-version": "tomba:deno:v1.0.0",
+    "x-sdk-version": "tomba:deno:v1.0.1",
   };
 
   /**

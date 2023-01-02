@@ -28,8 +28,12 @@ export class Domain extends Service {
       throw new TombaException('Missing required parameter: "domain"');
     }
 
-    let path = "/domain-search/{domain}".replace("{domain}", domain);
+    let path = "/domain-search";
     let payload: Payload = {};
+
+    if (typeof domain !== "undefined") {
+      payload["domain"] = domain;
+    }
 
     if (typeof page !== "undefined") {
       payload["page"] = page;
