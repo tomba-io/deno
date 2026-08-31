@@ -3,7 +3,7 @@
 > The #1 Rated Email Intelligence Platform — Find professional emails with unmatched accuracy.
 
 [![JSR](https://jsr.io/badges/@tomba/sdk)](https://jsr.io/@tomba/sdk)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/tomba-io/deno/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 This is the official Deno client library for the [Tomba.io](https://tomba.io) Email Finder API,
 providing access to all Tomba services including domain search, email finder, email verifier,
@@ -34,13 +34,7 @@ sales teams** worldwide.
 
 ## Installation
 
-Import from `deno.land/x`:
-
-```typescript
-import { Client, Domain, Finder, Verifier } from "https://deno.land/x/tombaio/mod.ts";
-```
-
-Or import locally:
+Import locally:
 
 ```typescript
 import { Client, Domain, Finder, Verifier } from "./mod.ts";
@@ -117,7 +111,7 @@ Find the email address of the author of a blog post or article.
 
 ```typescript
 const finder = new Finder(client);
-const result = await finder.authorFinder("https://example.com/blog/post");
+const result = await finder.authorFinder("https://tomba.io/blog");
 console.log(result);
 ```
 
@@ -476,6 +470,8 @@ B2B email intelligence platform.
 - **[Phone Finder](https://tomba.io/phone-finder)** — Find direct phone numbers
 - **[Bulk Enrichment](https://tomba.io/bulks)** — Enrich contacts at scale
 - **[AI Company Search](https://tomba.io/reveal)** — Find companies with AI-powered search
+- **[CLI](https://tomba.io/cli)** — Command-line interface for Tomba
+- **[MCP Server](https://tomba.io/mcp)** — Connect AI tools (Claude, ChatGPT, Cursor) to Tomba
 - **[REST API](https://tomba.io/api)** — Full programmatic access
 
 ### Browser Extensions & Add-ons

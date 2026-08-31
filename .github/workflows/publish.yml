@@ -13,11 +13,14 @@ jobs:
             contents: read
             id-token: write
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
 
             - uses: denoland/setup-deno@v2
               with:
                   deno-version: v2.x
 
+            - name: Run tests
+              run: deno test
+
             - name: Publish to JSR
-              run: deno publish
+              run: npx jsr publish

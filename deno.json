@@ -2,6 +2,9 @@
     "name": "@tomba/sdk",
     "version": "1.0.3",
     "exports": "./mod.ts",
+    "publish": {
+        "exclude": [".env", ".env.example", ".github/", "examples/", "CHANGELOG.md", "deno.lock"]
+    },
     "lint": {
         "include": ["src/", "mod.ts"]
     },
