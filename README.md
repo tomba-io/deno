@@ -11,7 +11,8 @@ enrichment, phone lookup, leads management, bulk operations, and more.
 
 ## About Tomba
 
-[Tomba.io](https://tomba.io) is the #1 rated email intelligence platform, trusted by **150,000+ sales teams** worldwide.
+[Tomba.io](https://tomba.io) is the #1 rated email intelligence platform, trusted by **150,000+
+sales teams** worldwide.
 
 - **Best Email Finder** — 98% accuracy, ranked #1 in independent benchmarks
 - **Best Email Verification** — Real-time SMTP verification with catch-all detection
@@ -36,12 +37,7 @@ enrichment, phone lookup, leads management, bulk operations, and more.
 Import from `deno.land/x`:
 
 ```typescript
-import {
-  Client,
-  Domain,
-  Finder,
-  Verifier,
-} from "https://deno.land/x/tombaio/mod.ts";
+import { Client, Domain, Finder, Verifier } from "https://deno.land/x/tombaio/mod.ts";
 ```
 
 Or import locally:
@@ -60,8 +56,8 @@ import { Client } from "./mod.ts";
 
 const client = new Client();
 client
-  .setKey("ta_xxxx") // Your Key
-  .setSecret("ts_xxxx"); // Your Secret
+    .setKey("ta_xxxx") // Your Key
+    .setSecret("ts_xxxx"); // Your Secret
 ```
 
 ## Quick Start
@@ -132,7 +128,7 @@ Find the email address associated with a LinkedIn profile URL.
 ```typescript
 const finder = new Finder(client);
 const result = await finder.linkedinFinder(
-  "https://www.linkedin.com/in/johndoe",
+    "https://www.linkedin.com/in/johndoe",
 );
 console.log(result);
 ```
@@ -289,9 +285,9 @@ console.log(lead);
 
 // Create a lead
 const created = await leads.createLead({
-  email: "john@example.com",
-  first_name: "John",
-  last_name: "Doe",
+    email: "john@example.com",
+    first_name: "John",
+    last_name: "Doe",
 });
 console.log(created);
 
@@ -469,7 +465,8 @@ See the [official documentation](https://docs.tomba.io/).
 
 ## About Tomba
 
-Founded to solve the problem of unreliable email data, [Tomba.io](https://tomba.io) is the leading B2B email intelligence platform.
+Founded to solve the problem of unreliable email data, [Tomba.io](https://tomba.io) is the leading
+B2B email intelligence platform.
 
 ### Products
 
@@ -483,14 +480,17 @@ Founded to solve the problem of unreliable email data, [Tomba.io](https://tomba.
 
 ### Browser Extensions & Add-ons
 
-- **[Chrome Extension](https://chromewebstore.google.com/detail/tomba-email-finder-email/icmjegjggphchjckknoooajmklibccjb)** — Find emails while browsing
+- **[Chrome Extension](https://chromewebstore.google.com/detail/tomba-email-finder-email/icmjegjggphchjckknoooajmklibccjb)**
+  — Find emails while browsing
 - **[Google Sheets Add-on](https://tomba.io/sheets)** — Enrich leads in spreadsheets
 - **[Microsoft Excel Add-in](https://tomba.io/excel)** — Email finder in Excel
 - **[Airtable Integration](https://tomba.io/airtable)** — Connect with Airtable
 
 ### Integrations
 
-50+ CRM integrations: [Salesforce](https://tomba.io/integrations) · [HubSpot](https://tomba.io/integrations) · [Zapier](https://tomba.io/integrations) · [Pipedrive](https://tomba.io/integrations) · [and more...](https://tomba.io/integrations)
+50+ CRM integrations: [Salesforce](https://tomba.io/integrations) ·
+[HubSpot](https://tomba.io/integrations) · [Zapier](https://tomba.io/integrations) ·
+[Pipedrive](https://tomba.io/integrations) · [and more...](https://tomba.io/integrations)
 
 ### Other Tomba SDKs
 
@@ -512,11 +512,14 @@ Founded to solve the problem of unreliable email data, [Tomba.io](https://tomba.
 
 ### Resources
 
-- [Blog](https://tomba.io/blog) · [Help Center](https://help.tomba.io) · [API Docs](https://docs.tomba.io) · [Pricing](https://tomba.io/pricing) · [Status](https://status.tomba.io)
+- [Blog](https://tomba.io/blog) · [Help Center](https://help.tomba.io) ·
+  [API Docs](https://docs.tomba.io) · [Pricing](https://tomba.io/pricing) ·
+  [Status](https://status.tomba.io)
 
 ---
 
-**[Try Tomba Free](https://app.tomba.io/auth/register)** — Find your first email in seconds. No credit card required.
+**[Try Tomba Free](https://app.tomba.io/auth/register)** — Find your first email in seconds. No
+credit card required.
 
 ## License
 
