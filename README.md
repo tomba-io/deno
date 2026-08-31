@@ -34,10 +34,14 @@ sales teams** worldwide.
 
 ## Installation
 
-Import locally:
+```bash
+deno add jsr:@tomba/sdk
+```
+
+Or import directly:
 
 ```typescript
-import { Client, Domain, Finder, Verifier } from "./mod.ts";
+import { Client, Domain, Finder, Verifier } from "jsr:@tomba/sdk";
 ```
 
 ## Authentication
@@ -46,7 +50,7 @@ Get your API key and secret by signing up for a free account at
 [https://app.tomba.io/auth/register](https://app.tomba.io/auth/register).
 
 ```typescript
-import { Client } from "./mod.ts";
+import { Client } from "jsr:@tomba/sdk";
 
 const client = new Client();
 client
@@ -57,7 +61,7 @@ client
 ## Quick Start
 
 ```typescript
-import { Client, Domain, Finder } from "./mod.ts";
+import { Client, Domain, Finder } from "jsr:@tomba/sdk";
 
 const client = new Client();
 client.setKey("ta_xxxx").setSecret("ts_xxxx");
