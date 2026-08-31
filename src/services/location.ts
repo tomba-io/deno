@@ -4,7 +4,7 @@ import type { Payload, TombaResponse } from "../client.ts";
 /**
  * Location
  *
- * Get location information based on IP address.
+ * Get location information based on Domain.
  *
  * @see {@link https://docs.tomba.io/api/finder#location | Location API}
  */
@@ -12,7 +12,7 @@ export class Location extends Service {
     /**
      * Get Location
      *
-     * Get the current location information based on IP address.
+     * Get the current location information based on Domain.
      *
      * @see {@link https://docs.tomba.io/api/finder#location#get-location | Get Location API}
      * @returns {Promise}

@@ -248,11 +248,11 @@ console.log(result);
 
 ### Location
 
-Get location information based on IP address.
+Get employee location data for a domain.
 
 ```typescript
 const location = new Location(client);
-const result = await location.getLocation();
+const result = await location.getLocation("tomba.io");
 console.log(result);
 ```
 
