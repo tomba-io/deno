@@ -1,6 +1,6 @@
 {
     "name": "@tomba/sdk",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "exports": "./mod.ts",
     "publish": {
         "exclude": [".env", ".env.example", ".github/", "examples/", "CHANGELOG.md", "deno.lock"]
