@@ -1,297 +1,523 @@
-# [<img src="https://app.tomba.io/logo.svg" alt="Tomba" width="25"/>](https://tomba.io/) Tomba Email Finder Deno Client Library
+# [<img src="https://tomba.io/logo.svg" alt="Tomba" width="25"/>](https://tomba.io/) Tomba Deno SDK
 
-This is the official Deno client library for the [Tomba.io](https://tomba.io)
-Email Finder API, allowing you to:
+> The #1 Rated Email Intelligence Platform — Find professional emails with unmatched accuracy.
 
-- [Domain Search](https://tomba.io/domain-search) (Search emails are based on the website You give one domain name and it returns all the email addresses found on the internet.)
-- [Email Finder](https://tomba.io/email-finder) (This API endpoint generates or retrieves the most likely email address from a domain name, a first name and a last name..)
-- [Author Finder](https://tomba.io/author-finder) (Instantly discover the email addresses of article authors.)
-- [Enrichment](https://tomba.io/author-finder) (The Enrichment lets you find the current job title, company, location and social profiles of the person behind the email.)
-- [Linkedin Finder](https://tomba.io/author-finder) (The Linkedin lets you find the current job title, company, location and social profiles of the person behind the linkedin URL.)
-- [Email Verifier](https://tomba.io/email-verifier) (checks the deliverability of a given email address, verifies if it has been found in our database, and returns their sources.)
+[![JSR](https://jsr.io/badges/@tomba/sdk)](https://jsr.io/@tomba/sdk)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/tomba-io/deno/blob/main/LICENSE)
 
-## Getting Started
+This is the official Deno client library for the [Tomba.io](https://tomba.io) Email Finder API,
+providing access to all Tomba services including domain search, email finder, email verifier,
+enrichment, phone lookup, leads management, bulk operations, and more.
 
-You'll need an Tomba API access token, which you can get by signing up for a
-free account at
-[https://app.tomba.io/auth/register](https://app.tomba.io/auth/register)
+## About Tomba
 
-The free plan is limited to 25 search request and 50 verification a month, To
-enable all the data fields and additional request volumes see
-[https://tomba.io/pricing](https://tomba.io/pricing).
+[Tomba.io](https://tomba.io) is the #1 rated email intelligence platform, trusted by **150,000+ sales teams** worldwide.
+
+- **Best Email Finder** — 98% accuracy, ranked #1 in independent benchmarks
+- **Best Email Verification** — Real-time SMTP verification with catch-all detection
+- **Best Phone Finder** — Direct dial numbers linked to professional emails
+- **Best Domain Search** — 450M+ verified contacts across all industries
+- **81% Coverage** — The highest in the industry, proven in 5,000-lead independent tests
+
+### Why Tomba?
+
+| Feature             | Tomba              | Others        |
+| ------------------- | ------------------ | ------------- |
+| Email Coverage      | **81%**            | 30-60%        |
+| Verification        | **Real-time SMTP** | Pattern-based |
+| Phone Numbers       | **Direct dials**   | Limited       |
+| Catch-all Detection | **AI-powered**     | Basic         |
+| API Rate Limits     | **Generous**       | Restrictive   |
+
+[Get your free API key](https://app.tomba.io/auth/register) — No credit card required.
 
 ## Installation
 
-```javascript
-import * as tomba from "https://deno.land/x/tombaio/mod.ts";
+Import from `deno.land/x`:
+
+```typescript
+import {
+  Client,
+  Domain,
+  Finder,
+  Verifier,
+} from "https://deno.land/x/tombaio/mod.ts";
 ```
 
-## Usage
+Or import locally:
 
-### Domain Search
+```typescript
+import { Client, Domain, Finder, Verifier } from "./mod.ts";
+```
 
-get email addresses found on the internet.
+## Authentication
 
-```js
-let client = new tomba.Client();
+Get your API key and secret by signing up for a free account at
+[https://app.tomba.io/auth/register](https://app.tomba.io/auth/register).
 
-let domain = new tomba.Domain(client);
+```typescript
+import { Client } from "./mod.ts";
 
+const client = new Client();
 client
   .setKey("ta_xxxx") // Your Key
   .setSecret("ts_xxxx"); // Your Secret
-
-const result = domain.domainSearch("stripe.com");
-
-result
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 ```
 
-#### Domain Search Response
+## Quick Start
 
-```json
-{
-  "data": {
-    "organization": {
-      "location": {
-        "country": "US",
-        "city": "San Francisco",
-        "state": "California",
-        "street_address": "-122.41"
-      },
-      "social_links": {
-        "twitter_url": "https://twitter.com/stripe",
-        "facebook_url": "https://www.facebook.com/StripeHQ",
-        "linkedin_url": "https://www.linkedin.com/company/2135371"
-      },
-      "disposable": false,
-      "webmail": false,
-      "website_url": "stripe.com",
-      "phone_number": "",
-      "industries": "internet",
-      "postal_code": "94107",
-      "employee_count": 976,
-      "founded": "2010",
-      "company_size": "1001-5000",
-      "last_updated": "2023-03-28T16:21:55+01:00",
-      "revenue": "150000",
-      "accept_all": true,
-      "description": "Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Headquartered in San Francisco and Dublin, the company aims to increase the GDP of the internet.",
-      "pattern": "{first}",
-      "domain_score": 30,
-      "organization": "stripe",
-      "whois": {
-        "registrar_name": "SafeNames Ltd.",
-        "created_date": "1995-09-12 00:00:00",
-        "referral_url": "https://www.safenames.net/"
-      }
-    },
-    "emails": [
-      {
-        "email": "**@stripe.com",
-        "first_name": "**",
-        "last_name": "**",
-        "full_name": "** **",
-        "gender": "female",
-        "phone_number": null,
-        "type": "personal",
-        "country": "US",
-        "position": "Financial Crimes Analyst",
-        "department": "finance",
-        "seniority": "senior",
-        "twitter": null,
-        "linkedin": "https://www.linkedin.com/in/**",
-        "accept_all": true,
-        "pattern": "{first}",
-        "score": 90,
-        "verification": { "date": null, "status": null },
-        "last_updated": "2023-02-21T14:18:24+01:00",
-        "sources": [
-          {
-            "uri": "https://stripe.com/docs/cli",
-            "website_url": "stripe.com",
-            "extracted_on": "2022-03-08T01:23:16+01:00",
-            "last_seen_on": "2022-08-04T09:42:10+01:00",
-            "still_on_page": true
-          }
-        ]
-      },
-      ...
-      ...
-      ...
-      ...
-    ]
-  },
-  "meta": { "total": 2031, "pageSize": 10, "current": 0, "total_pages": 204 }
-}
+```typescript
+import { Client, Domain, Finder } from "./mod.ts";
+
+const client = new Client();
+client.setKey("ta_xxxx").setSecret("ts_xxxx");
+
+// Search emails by domain
+const domain = new Domain(client);
+const result = await domain.domainSearch("example.com");
+console.log(result);
+
+// Find a specific email
+const finder = new Finder(client);
+const email = await finder.emailFinder("example.com", "John", "Doe");
+console.log(email);
+```
+
+## Services
+
+### Domain Search
+
+Search emails for a domain. Returns all email addresses found on the internet for the given domain.
+
+```typescript
+const domain = new Domain(client);
+const result = await domain.domainSearch("example.com");
+console.log(result);
 ```
 
 ### Email Finder
 
-Find the verified email address of any professional.
+Find the most likely email address from a domain name, first name, and last name.
 
-```js
-let client = new tomba.Client();
-
-let finder = new tomba.Finder(client);
-
-client
-  .setKey("ta_xxxx") // Your Key
-  .setSecret("ts_xxxx"); // Your Secret
-
-const result = finder.emailFinder("stripe.com", "Moskoz", "Dustin");
-
-result
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-```
-
-#### Email Finder Response
-
-```json
-{
-  "data": {
-    "email": "b.mohamed@tomba.io",
-    "first_name": "Mohamed",
-    "last_name": "Ben rebia",
-    "full_name": "Mohamed Ben rebia",
-    "gender": "male",
-    "country": null,
-    "position": "CEO",
-    "twitter": null,
-    "linkedin": "https://www.linkedin.com/in/mohamed-ben-rebia",
-    "phone_number": null,
-    "accept_all": null,
-    "website_url": "tomba.io",
-    "company": "Tomba technology web service LLC ",
-    "score": 99,
-    "verification": { "date": "2022-05-25", "status": "valid" },
-    "sources": [
-      {
-        "uri": "https://github.com/tomba-io/generic-emails/blob/084fc1a63d3cdaf9a34f255bedc2baea49a8e8b9/src/lib/validation/hash.ts",
-        "website_url": "github.com",
-        "extracted_on": "2021-02-08T20:09:54+01:00",
-        "last_seen_on": "2021-02-08T22:43:40+01:00",
-        "still_on_page": true
-      },
-     ...
-     ...
-     ...
-    ]
-  }
-}
+```typescript
+const finder = new Finder(client);
+const result = await finder.emailFinder("example.com", "John", "Doe");
+console.log(result);
 ```
 
 ### Email Verifier
 
-Verify the validity of any professional email address with the most complete
-email checker.
+Verify the deliverability of a given email address.
 
-```js
-let client = new tomba.Client();
-
-let verifier = new tomba.Verifier(client);
-
-client
-  .setKey("ta_xxxx") // Your Key
-  .setSecret("ts_xxxx"); // Your Secret
-
-const result = verifier.emailVerifier("b.mohamed@tomba.io");
-
-result
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+```typescript
+const verifier = new Verifier(client);
+const result = await verifier.emailVerifier("john@example.com");
+console.log(result);
 ```
 
-#### Email Verifier Response
+### Author Finder
 
-```json
-{
-  "data": {
-    "email": {
-      "mx_records": true,
-      "smtp_server": true,
-      "smtp_check": true,
-      "accept_all": false,
-      "block": false,
-      "email": "b.mohamed@tomba.io",
-      "gibberish": false,
-      "disposable": false,
-      "webmail": false,
-      "regex": true,
-      "whois": {
-        "registrar_name": "NameCheap, Inc.",
-        "created_date": "2020-07-07 20:54:07",
-        "referral_url": "https://www.namecheap.com/"
-      },
-      "status": "valid",
-      "result": "deliverable",
-      "score": 100
-    },
-    "sources": [
-      {
-        "uri": "https://github.com/tomba-io/generic-emails/blob/084fc1a63d3cdaf9a34f255bedc2baea49a8e8b9/src/lib/validation/hash.ts",
-        "website_url": "github.com",
-        "extracted_on": "2021-02-08T20:09:54+01:00",
-        "last_seen_on": "2021-02-08T22:43:40+01:00",
-        "still_on_page": true
-      },
-      ...
-      ...
-      ...
-    ]
-  }
-}
+Find the email address of the author of a blog post or article.
+
+```typescript
+const finder = new Finder(client);
+const result = await finder.authorFinder("https://example.com/blog/post");
+console.log(result);
 ```
 
-## Examples
+### LinkedIn Finder
 
-Sample codes under [**examples/**](/examples/) folder.
+Find the email address associated with a LinkedIn profile URL.
+
+```typescript
+const finder = new Finder(client);
+const result = await finder.linkedinFinder(
+  "https://www.linkedin.com/in/johndoe",
+);
+console.log(result);
+```
+
+### Email Enrichment (Person / Company / Combined)
+
+Person, company, and combined enrichment APIs.
+
+```typescript
+const enrichment = new Enrichment(client);
+
+// Person enrichment
+const person = await enrichment.person("john@example.com");
+console.log(person);
+
+// Company enrichment
+const company = await enrichment.company("example.com");
+console.log(company);
+
+// Combined enrichment
+const combined = await enrichment.combined("john@example.com");
+console.log(combined);
+```
+
+### Phone Finder
+
+Find a phone number using an email address.
+
+```typescript
+const finder = new Finder(client);
+const result = await finder.phoneFinder("john@example.com");
+console.log(result);
+
+// Or using the PhoneFinder service directly
+const phone = new PhoneFinder(client);
+const result2 = await phone.finder("john@example.com");
+console.log(result2);
+```
+
+### Phone Validator
+
+Validate a phone number and get additional information.
+
+```typescript
+const phone = new PhoneFinder(client);
+const result = await phone.validator("+1234567890");
+console.log(result);
+```
+
+### Email Count
+
+Get the total number of email addresses Tomba has for a domain.
+
+```typescript
+const count = new Count(client);
+const result = await count.emailCount("example.com");
+console.log(result);
+```
+
+### Domain Status
+
+Check whether a domain is a webmail or disposable email provider.
+
+```typescript
+const status = new Status(client);
+const result = await status.domainStatus("example.com");
+console.log(result);
+```
+
+### Domain Suggestions (Autocomplete)
+
+Auto-complete company names and retrieve logo and domain information.
+
+```typescript
+const status = new Status(client);
+const result = await status.autoComplete("exampl");
+console.log(result);
+```
+
+### Email Sources
+
+Find the web sources where an email address has been found.
+
+```typescript
+const sources = new Sources(client);
+const result = await sources.emailSources("john@example.com");
+console.log(result);
+```
+
+### Email Format
+
+Detect the email format used by a company.
+
+```typescript
+const format = new Format(client);
+const result = await format.emailFormat("example.com");
+console.log(result);
+```
+
+### Similar Domains
+
+Find domains similar to the given one.
+
+```typescript
+const similar = new Similar(client);
+const result = await similar.websites("example.com");
+console.log(result);
+```
+
+### Technology Checker
+
+Check what technologies a website uses.
+
+```typescript
+const technology = new Technology(client);
+const result = await technology.list("example.com");
+console.log(result);
+```
+
+### Location
+
+Get location information based on IP address.
+
+```typescript
+const location = new Location(client);
+const result = await location.getLocation();
+console.log(result);
+```
+
+### Reveal (Companies Search)
+
+Search for companies by various criteria.
+
+```typescript
+const reveal = new Reveal(client);
+const result = await reveal.companiesSearch("technology");
+console.log(result);
+```
+
+### Leads
+
+Manage your saved leads -- list, get, create, update, and delete.
+
+```typescript
+const leads = new Leads(client);
+
+// List leads
+const list = await leads.listLeads();
+console.log(list);
+
+// Get a single lead
+const lead = await leads.getLead("lead_id");
+console.log(lead);
+
+// Create a lead
+const created = await leads.createLead({
+  email: "john@example.com",
+  first_name: "John",
+  last_name: "Doe",
+});
+console.log(created);
+
+// Update a lead
+const updated = await leads.updateLead("lead_id", { first_name: "Jane" });
+console.log(updated);
+
+// Delete a lead
+const deleted = await leads.deleteLead("lead_id");
+console.log(deleted);
+```
+
+### Leads Lists
+
+Manage your leads lists -- list, create, update, and delete.
+
+```typescript
+const leadsLists = new LeadsLists(client);
+
+// List all leads lists
+const lists = await leadsLists.getLists();
+console.log(lists);
+
+// Create a leads list
+const created = await leadsLists.createList("My List");
+console.log(created);
+
+// Update a leads list
+const updated = await leadsLists.updateList("list_id", "Updated List");
+console.log(updated);
+
+// Delete a leads list
+const deleted = await leadsLists.deleteList("list_id");
+console.log(deleted);
+```
+
+### Leads Attributes
+
+Manage custom lead attributes -- list, create, update, and delete.
+
+```typescript
+const attrs = new LeadsAttributes(client);
+
+// List all attributes
+const list = await attrs.getAttributes();
+console.log(list);
+
+// Create an attribute
+const created = await attrs.createAttribute("Company Size", "string");
+console.log(created);
+
+// Update an attribute
+const updated = await attrs.updateAttribute("attr_id", "Company Revenue");
+console.log(updated);
+
+// Delete an attribute
+const deleted = await attrs.deleteAttribute("attr_id");
+console.log(deleted);
+```
+
+### Keys
+
+Manage your API keys.
+
+```typescript
+const keys = new Keys(client);
+
+// List all keys
+const list = await keys.getKeys();
+console.log(list);
+
+// Create a key
+const created = await keys.createKey();
+console.log(created);
+
+// Reset a key
+const reset = await keys.resetKey("key_id");
+console.log(reset);
+
+// Delete a key
+const deleted = await keys.deleteKey("key_id");
+console.log(deleted);
+```
+
+### Usage
+
+Return your monthly API request usage.
+
+```typescript
+const usage = new Usage(client);
+const result = await usage.getUsage();
+console.log(result);
+```
+
+### Logs
+
+Return the last 1,000 API requests made in the past 3 months.
+
+```typescript
+const logs = new Logs(client);
+const result = await logs.getLogs();
+console.log(result);
+```
+
+### Flag
+
+List and create email address flags.
+
+```typescript
+const flag = new Flag(client);
+
+// List flags
+const list = await flag.listFlags();
+console.log(list);
+
+// Create a flag
+const created = await flag.createFlag("john@example.com", "invalid");
+console.log(created);
+```
+
+### Bulk
+
+Manage bulk email operations -- list, get, create, launch, archive, rename, check progress, and
+download.
+
+```typescript
+const bulk = new Bulk(client);
+
+// List all bulk tasks
+const list = await bulk.list();
+console.log(list);
+
+// Get a bulk task
+const task = await bulk.get("bulk_id");
+console.log(task);
+
+// Create a bulk task
+const created = await bulk.create({ name: "My Bulk Task" });
+console.log(created);
+
+// Launch a bulk task
+const launched = await bulk.launch("bulk_id");
+console.log(launched);
+
+// Check bulk progress
+const progress = await bulk.progress("bulk_id");
+console.log(progress);
+
+// Download bulk results
+const download = await bulk.download("bulk_id");
+console.log(download);
+
+// Rename a bulk task
+const renamed = await bulk.rename("bulk_id", "New Name");
+console.log(renamed);
+
+// Archive a bulk task
+const archived = await bulk.archive("bulk_id");
+console.log(archived);
+
+// Delete a bulk task
+const deleted = await bulk.delete("bulk_id");
+console.log(deleted);
+```
+
+## Testing
+
+```bash
+deno test
+```
 
 ## Documentation
 
-See the [official documentation](https://docs.tomba.io/introduction).
+See the [official documentation](https://docs.tomba.io/).
 
-### Other Libraries
+## About Tomba
 
-There are official Tomba Email Finder client libraries available for many
-languages including PHP, Python, Go, Java, Ruby, and many popular frameworks
-such as Django, Rails and Laravel. There are also many third party libraries and
-integrations available for our API.
+Founded to solve the problem of unreliable email data, [Tomba.io](https://tomba.io) is the leading B2B email intelligence platform.
 
-[https://docs.tomba.io/libraries](https://docs.tomba.io/libraries)
+### Products
 
-### About Tomba
+- **[Email Finder](https://tomba.io/email-finder)** — Find any professional email address
+- **[Email Verifier](https://tomba.io/email-verifier)** — Verify emails in real-time
+- **[Domain Search](https://tomba.io/domain-search)** — Find all emails for a company
+- **[Phone Finder](https://tomba.io/phone-finder)** — Find direct phone numbers
+- **[Bulk Enrichment](https://tomba.io/bulks)** — Enrich contacts at scale
+- **[AI Company Search](https://tomba.io/reveal)** — Find companies with AI-powered search
+- **[REST API](https://tomba.io/api)** — Full programmatic access
 
-Founded in 2021, Tomba prides itself on being the most reliable, accurate, and
-in-depth source of Email address data available anywhere. We process terabytes
-of data to produce our Email finder API, company.
+### Browser Extensions & Add-ons
 
-[![image](https://avatars.githubusercontent.com/u/67979591?s=200&v=4)](https://tomba.io/)
+- **[Chrome Extension](https://chromewebstore.google.com/detail/tomba-email-finder-email/icmjegjggphchjckknoooajmklibccjb)** — Find emails while browsing
+- **[Google Sheets Add-on](https://tomba.io/sheets)** — Enrich leads in spreadsheets
+- **[Microsoft Excel Add-in](https://tomba.io/excel)** — Email finder in Excel
+- **[Airtable Integration](https://tomba.io/airtable)** — Connect with Airtable
 
-## Contribution
+### Integrations
 
-1. Fork it (<https://github.com/tomba-io/deno/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+50+ CRM integrations: [Salesforce](https://tomba.io/integrations) · [HubSpot](https://tomba.io/integrations) · [Zapier](https://tomba.io/integrations) · [Pipedrive](https://tomba.io/integrations) · [and more...](https://tomba.io/integrations)
+
+### Other Tomba SDKs
+
+| Language | Package                                                     |
+| -------- | ----------------------------------------------------------- |
+| Node.js  | [tomba](https://www.npmjs.com/package/tomba)                |
+| Python   | [tomba-io](https://pypi.org/project/tomba-io/)              |
+| PHP      | [tomba-io/php](https://packagist.org/packages/tomba-io/php) |
+| Ruby     | [tomba](https://rubygems.org/gems/tomba)                    |
+| Go       | [tomba-io/go](https://pkg.go.dev/github.com/tomba-io/go)    |
+| Rust     | [tomba](https://crates.io/crates/tomba)                     |
+| Dart     | [tomba](https://pub.dev/packages/tomba)                     |
+| Deno     | [@tomba/sdk](https://jsr.io/@tomba/sdk)                     |
+| Elixir   | [tomba](https://hex.pm/packages/tomba)                      |
+| C#       | [Tomba](https://www.nuget.org/packages/Tomba)               |
+| Perl     | [Tomba::Client](https://metacpan.org/pod/Tomba::Client)     |
+| Lua      | [tomba](https://luarocks.org/modules/tomba/tomba)           |
+| R        | [tomba](https://github.com/tomba-io/r)                      |
+
+### Resources
+
+- [Blog](https://tomba.io/blog) · [Help Center](https://help.tomba.io) · [API Docs](https://docs.tomba.io) · [Pricing](https://tomba.io/pricing) · [Status](https://status.tomba.io)
+
+---
+
+**[Try Tomba Free](https://app.tomba.io/auth/register)** — Find your first email in seconds. No credit card required.
 
 ## License
 
-Please see the
-[Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0.html) file for
-more information.
+Apache 2.0 -- see [LICENSE](http://www.apache.org/licenses/LICENSE-2.0.html) for details.

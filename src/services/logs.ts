@@ -1,22 +1,36 @@
 import { Service } from "../service.ts";
-import { Payload } from "../client.ts";
-import { TombaException } from "../exception.ts";
+import type { Payload, TombaResponse } from "../client.ts";
 
+/**
+ * Logs
+ *
+ * Check your API request logs.
+ *
+ * @see {@link https://docs.tomba.io/api/account#retrieve-api-logs | Logs API}
+ */
 export class Logs extends Service {
-  /**
-     * get Logs
+    /**
+     * Get Logs
      *
-     * Returns a your last 1,000 requests you made during the last 3 months.
+     * Returns your last 1,000 requests you made during the last 3 months.
      *
-     * @throws {TombaException}
+     * @see {@link https://docs.tomba.io/api/account#retrieve-api-logs#get-logs | Get Logs API}
      * @returns {Promise}
      */
-  async getLogs<T extends unknown>(): Promise<T> {
-    let path = "/logs";
-    let payload: Payload = {};
+    async getLogs(page?: number, limit?: number): Promise<TombaResponse> {
+        const path = "/logs";
+        const payload: Payload = {};
 
-    return await this.client.call("get", path, {
-      "content-type": "application/json",
-    }, payload);
-  }
+        if (typeof page !== "undefined") {
+            payload["page"] = page;
+        }
+
+        if (typeof limit !== "undefined") {
+            payload["limit"] = limit;
+        }
+
+        return await this.client.call("get", path, {
+            "content-type": "application/json",
+        }, payload);
+    }
 }

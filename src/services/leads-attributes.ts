@@ -1,83 +1,123 @@
 import { Service } from "../service.ts";
-import { Payload } from "../client.ts";
+import type { Payload, TombaResponse } from "../client.ts";
 import { TombaException } from "../exception.ts";
 
+/**
+ * Leads Attributes
+ *
+ * Manage your lead attributes.
+ *
+ * @see {@link https://docs.tomba.io/api/leads-attributes | Leads Attributes API}
+ */
 export class LeadsAttributes extends Service {
-  /**
+    /**
      * Get Lead Attributes
      *
      * Returns a list of Lead Attributes.
      *
+     * @see {@link https://docs.tomba.io/api/leads-attributes#list-lead-attributes | List Lead Attributes API}
      * @throws {TombaException}
      * @returns {Promise}
      */
-  async getLeadAttributes<T extends unknown>(): Promise<T> {
-    let path = "/leads/attributes/{id}";
-    let payload: Payload = {};
+    async getLeadAttributes(): Promise<TombaResponse> {
+        const path = "/leads/attributes";
+        const payload: Payload = {};
 
-    return await this.client.call("get", path, {
-      "content-type": "application/json",
-    }, payload);
-  }
+        return await this.client.call("get", path, {
+            "content-type": "application/json",
+        }, payload);
+    }
 
-  /**
+    /**
      * Delete Lead Attribute
      *
-     * Delete a specific Attributes by passing id.
+     * Delete a specific Attribute by passing id.
      *
+     * @see {@link https://docs.tomba.io/api/leads-attributes#delete-lead-attribute | Delete Lead Attribute API}
      * @param {string} id
      * @throws {TombaException}
      * @returns {Promise}
      */
-  async deleteLeadAttribute<T extends unknown>(id: string): Promise<T> {
-    if (typeof id === "undefined") {
-      throw new TombaException('Missing required parameter: "id"');
+    async deleteLeadAttribute(id: string): Promise<TombaResponse> {
+        if (typeof id === "undefined") {
+            throw new TombaException('Missing required parameter: "id"');
+        }
+
+        const path = "/leads/attributes/" + id;
+        const payload: Payload = {};
+
+        return await this.client.call("delete", path, {
+            "content-type": "application/json",
+        }, payload);
     }
 
-    let path = "/leads/attributes/{id}".replace("{id}", id);
-    let payload: Payload = {};
-
-    return await this.client.call("delete", path, {
-      "content-type": "application/json",
-    }, payload);
-  }
-
-  /**
+    /**
      * Create Lead Attribute
      *
-     * Create a new Attributes with the name and type request parameter.
+     * Create a new Attribute with the name and type request parameter.
      *
+     * @see {@link https://docs.tomba.io/api/leads-attributes#create-lead-attribute | Create Lead Attribute API}
+     * @param {string} name
+     * @param {string} type
      * @throws {TombaException}
      * @returns {Promise}
      */
-  async createLeadAttribute<T extends unknown>(): Promise<T> {
-    let path = "/leads/attributes/{id}";
-    let payload: Payload = {};
+    async createLeadAttribute(
+        name: string,
+        type: string,
+    ): Promise<TombaResponse> {
+        if (typeof name === "undefined") {
+            throw new TombaException('Missing required parameter: "name"');
+        }
 
-    return await this.client.call("post", path, {
-      "content-type": "application/json",
-    }, payload);
-  }
+        if (typeof type === "undefined") {
+            throw new TombaException('Missing required parameter: "type"');
+        }
 
-  /**
-     * Update Lead Attribute
-     *
-     * Update the fields of a Attributes using id.
-     *
-     * @param {string} id
-     * @throws {TombaException}
-     * @returns {Promise}
-     */
-  async updateLeadAttribute<T extends unknown>(id: string): Promise<T> {
-    if (typeof id === "undefined") {
-      throw new TombaException('Missing required parameter: "id"');
+        const path = "/leads/attributes";
+        const payload: Payload = {};
+
+        if (typeof name !== "undefined") {
+            payload["name"] = name;
+        }
+
+        if (typeof type !== "undefined") {
+            payload["type"] = type;
+        }
+
+        return await this.client.call("post", path, {
+            "content-type": "application/json",
+        }, payload);
     }
 
-    let path = "/leads/attributes/{id}".replace("{id}", id);
-    let payload: Payload = {};
+    /**
+     * Update Lead Attribute
+     *
+     * Update the fields of an Attribute using id.
+     *
+     * @see {@link https://docs.tomba.io/api/leads-attributes#update-lead-attribute | Update Lead Attribute API}
+     * @param {string} id
+     * @param {string} name
+     * @throws {TombaException}
+     * @returns {Promise}
+     */
+    async updateLeadAttribute(
+        id: string,
+        name?: string,
+    ): Promise<TombaResponse> {
+        if (typeof id === "undefined") {
+            throw new TombaException('Missing required parameter: "id"');
+        }
 
-    return await this.client.call("put", path, {
-      "content-type": "application/json",
-    }, payload);
-  }
+        const path = "/leads/attributes/" + id;
+        const payload: Payload = {};
+
+        if (typeof name !== "undefined") {
+            payload["name"] = name;
+        }
+
+        return await this.client.call("put", path, {
+            "content-type": "application/json",
+        }, payload);
+    }
 }

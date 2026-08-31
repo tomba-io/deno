@@ -3,37 +3,33 @@ import type { Payload, TombaResponse } from "../client.ts";
 import { TombaException } from "../exception.ts";
 
 /**
- * Verifier
+ * Format
  *
- * Verify email addresses.
+ * Format and validate email addresses.
  *
- * @see {@link https://docs.tomba.io/api/verifier | Email Verifier API}
+ * @see {@link https://docs.tomba.io/api/format | Email Format API}
  */
-export class Verifier extends Service {
+export class Format extends Service {
     /**
-     * Email Verifier
+     * Email Format
      *
-     * Verify the deliverability of an email address.
+     * Check the format of an email address and return detailed information.
      *
-     * @see {@link https://docs.tomba.io/api/verifier#email-verifier | Email Verifier API}
+     * @see {@link https://docs.tomba.io/api/format#email-format | Email Format API}
      * @param {string} email
      * @throws {TombaException}
      * @returns {Promise}
      */
-    async emailVerifier(email: string, webhookUrl?: string): Promise<TombaResponse> {
+    async emailFormat(email: string): Promise<TombaResponse> {
         if (typeof email === "undefined") {
             throw new TombaException('Missing required parameter: "email"');
         }
 
-        const path = "/email-verifier";
+        const path = "/email-format";
         const payload: Payload = {};
 
         if (typeof email !== "undefined") {
             payload["email"] = email;
-        }
-
-        if (typeof webhookUrl !== "undefined") {
-            payload["webhook_url"] = webhookUrl;
         }
 
         return await this.client.call("get", path, {

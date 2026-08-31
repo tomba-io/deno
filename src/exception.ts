@@ -1,11 +1,11 @@
 export class TombaException {
-  message: String;
-  code: Number;
-  response: any;
+    message: string;
+    code: number;
+    response: unknown;
 
-  constructor(message: String, code: Number = 0, response: any = "") {
-    this.message = message;
-    this.code = code;
-    this.response = response;
-  }
+    constructor(message: string, code: number = 0, response: unknown = "") {
+        this.message = message;
+        this.code = code;
+        this.response = response;
+    }
 }

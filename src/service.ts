@@ -1,12 +1,12 @@
-import { Client } from "./client.ts";
+import type { Client } from "./client.ts";
 
 export abstract class Service {
-  client: Client;
+    client: Client;
 
-  /**
+    /**
      * @param client
      */
-  constructor(client: Client) {
-    this.client = client;
-  }
+    constructor(client: Client) {
+        this.client = client;
+    }
 }

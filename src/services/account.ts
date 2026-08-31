@@ -1,22 +1,28 @@
 import { Service } from "../service.ts";
-import { Payload } from "../client.ts";
-import { TombaException } from "../exception.ts";
+import type { Payload, TombaResponse } from "../client.ts";
 
+/**
+ * Account
+ *
+ * Manage your Tomba account.
+ *
+ * @see {@link https://docs.tomba.io/api/account | Account API}
+ */
 export class Account extends Service {
-  /**
+    /**
      * Get Account
      *
      * Returns information about the current account.
      *
-     * @throws {TombaException}
+     * @see {@link https://docs.tomba.io/api/account#get-account | Get Account API}
      * @returns {Promise}
      */
-  async getAccount<T extends unknown>(): Promise<T> {
-    let path = "/me";
-    let payload: Payload = {};
+    async getAccount(): Promise<TombaResponse> {
+        const path = "/me";
+        const payload: Payload = {};
 
-    return await this.client.call("get", path, {
-      "content-type": "application/json",
-    }, payload);
-  }
+        return await this.client.call("get", path, {
+            "content-type": "application/json",
+        }, payload);
+    }
 }

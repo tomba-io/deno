@@ -3,29 +3,29 @@ import type { Payload, TombaResponse } from "../client.ts";
 import { TombaException } from "../exception.ts";
 
 /**
- * Count
+ * Similar
  *
- * Get the number of email addresses found for a domain.
+ * Find similar websites to a given domain.
  *
- * @see {@link https://docs.tomba.io/api/count | Email Count API}
+ * @see {@link https://docs.tomba.io/api/similar | Similar API}
  */
-export class Count extends Service {
+export class Similar extends Service {
     /**
-     * Email Count
+     * Similar Websites
      *
-     * Domain name from which you want to find the email addresses.
+     * Find websites that are similar to the specified domain.
      *
-     * @see {@link https://docs.tomba.io/api/count#email-count | Email Count API}
+     * @see {@link https://docs.tomba.io/api/similar#similar-websites | Similar Websites API}
      * @param {string} domain
      * @throws {TombaException}
      * @returns {Promise}
      */
-    async emailCount(domain: string): Promise<TombaResponse> {
+    async websites(domain: string): Promise<TombaResponse> {
         if (typeof domain === "undefined") {
             throw new TombaException('Missing required parameter: "domain"');
         }
 
-        const path = "/email-count";
+        const path = "/similar";
         const payload: Payload = {};
 
         if (typeof domain !== "undefined") {

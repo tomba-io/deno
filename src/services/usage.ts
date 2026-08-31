@@ -1,22 +1,28 @@
 import { Service } from "../service.ts";
-import { Payload } from "../client.ts";
-import { TombaException } from "../exception.ts";
+import type { Payload, TombaResponse } from "../client.ts";
 
+/**
+ * Usage
+ *
+ * Check your monthly API usage.
+ *
+ * @see {@link https://docs.tomba.io/api/account#retrieve-api-usage | Usage API}
+ */
 export class Usage extends Service {
-  /**
-     * get Usage
+    /**
+     * Get Usage
      *
-     * Returns a your monthly requests
+     * Returns your monthly requests.
      *
-     * @throws {TombaException}
+     * @see {@link https://docs.tomba.io/api/account#retrieve-api-usage#get-usage | Get Usage API}
      * @returns {Promise}
      */
-  async getUsage<T extends unknown>(): Promise<T> {
-    let path = "/usage";
-    let payload: Payload = {};
+    async getUsage(): Promise<TombaResponse> {
+        const path = "/usage";
+        const payload: Payload = {};
 
-    return await this.client.call("get", path, {
-      "content-type": "application/json",
-    }, payload);
-  }
+        return await this.client.call("get", path, {
+            "content-type": "application/json",
+        }, payload);
+    }
 }

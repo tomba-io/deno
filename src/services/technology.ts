@@ -3,29 +3,29 @@ import type { Payload, TombaResponse } from "../client.ts";
 import { TombaException } from "../exception.ts";
 
 /**
- * Count
+ * Technology
  *
- * Get the number of email addresses found for a domain.
+ * Find technologies used by a domain.
  *
- * @see {@link https://docs.tomba.io/api/count | Email Count API}
+ * @see {@link https://docs.tomba.io/api/domain#technology | Technology API}
  */
-export class Count extends Service {
+export class Technology extends Service {
     /**
-     * Email Count
+     * Technology List
      *
-     * Domain name from which you want to find the email addresses.
+     * Returns a list of technologies used by the given domain.
      *
-     * @see {@link https://docs.tomba.io/api/count#email-count | Email Count API}
+     * @see {@link https://docs.tomba.io/api/domain#technology#technology-finder | Technology Finder API}
      * @param {string} domain
      * @throws {TombaException}
      * @returns {Promise}
      */
-    async emailCount(domain: string): Promise<TombaResponse> {
+    async list(domain: string): Promise<TombaResponse> {
         if (typeof domain === "undefined") {
             throw new TombaException('Missing required parameter: "domain"');
         }
 
-        const path = "/email-count";
+        const path = "/technology";
         const payload: Payload = {};
 
         if (typeof domain !== "undefined") {
