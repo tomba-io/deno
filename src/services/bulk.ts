@@ -109,7 +109,7 @@ export class Bulk extends Service {
         const path = "/bulk/" + type + "/" + id;
         const payload: Payload = {};
 
-        return await this.client.call("post", path, {
+        return await this.client.call("put", path, {
             "content-type": "application/json",
         }, payload);
     }
@@ -161,7 +161,7 @@ export class Bulk extends Service {
         const path = "/bulk/" + type + "/" + id + "/archive";
         const payload: Payload = {};
 
-        return await this.client.call("post", path, {
+        return await this.client.call("delete", path, {
             "content-type": "application/json",
         }, payload);
     }
