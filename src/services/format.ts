@@ -16,20 +16,20 @@ export class Format extends Service {
      * Check the format of an email address and return detailed information.
      *
      * @see {@link https://docs.tomba.io/api/format#email-format | Email Format API}
-     * @param {string} email
+     * @param {string} domain
      * @throws {TombaException}
      * @returns {Promise}
      */
-    async emailFormat(email: string): Promise<TombaResponse> {
-        if (typeof email === "undefined") {
-            throw new TombaException('Missing required parameter: "email"');
+    async emailFormat(domain: string): Promise<TombaResponse> {
+        if (typeof domain === "undefined") {
+            throw new TombaException('Missing required parameter: "domain"');
         }
 
         const path = "/email-format";
         const payload: Payload = {};
 
-        if (typeof email !== "undefined") {
-            payload["email"] = email;
+        if (typeof domain !== "undefined") {
+            payload["domain"] = domain;
         }
 
         return await this.client.call("get", path, {

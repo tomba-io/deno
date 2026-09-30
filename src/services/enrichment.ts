@@ -25,7 +25,7 @@ export class Enrichment extends Service {
             throw new TombaException('Missing required parameter: "email"');
         }
 
-        const path = "/enrichment";
+        const path = "/people/find";
         const payload: Payload = {};
 
         if (typeof email !== "undefined") {
@@ -56,7 +56,7 @@ export class Enrichment extends Service {
             throw new TombaException('Missing required parameter: "domain"');
         }
 
-        const path = "/enrichment/company";
+        const path = "/companies/find";
         const payload: Payload = {};
 
         if (typeof domain !== "undefined") {
@@ -83,7 +83,7 @@ export class Enrichment extends Service {
             throw new TombaException('Missing required parameter: "email"');
         }
 
-        const path = "/enrichment/combined";
+        const path = "/combined/find";
         const payload: Payload = {};
 
         if (typeof email !== "undefined") {

@@ -20,7 +20,7 @@ export class LeadsAttributes extends Service {
      * @returns {Promise}
      */
     async getLeadAttributes(): Promise<TombaResponse> {
-        const path = "/leads/attributes";
+        const path = "/attributes";
         const payload: Payload = {};
 
         return await this.client.call("get", path, {
@@ -43,7 +43,7 @@ export class LeadsAttributes extends Service {
             throw new TombaException('Missing required parameter: "id"');
         }
 
-        const path = "/leads/attributes/" + id;
+        const path = "/attributes/" + id;
         const payload: Payload = {};
 
         return await this.client.call("delete", path, {
@@ -74,7 +74,7 @@ export class LeadsAttributes extends Service {
             throw new TombaException('Missing required parameter: "type"');
         }
 
-        const path = "/leads/attributes";
+        const path = "/attributes";
         const payload: Payload = {};
 
         if (typeof name !== "undefined") {
@@ -109,7 +109,7 @@ export class LeadsAttributes extends Service {
             throw new TombaException('Missing required parameter: "id"');
         }
 
-        const path = "/leads/attributes/" + id;
+        const path = "/attributes/" + id;
         const payload: Payload = {};
 
         if (typeof name !== "undefined") {

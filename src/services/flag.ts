@@ -20,7 +20,7 @@ export class Flag extends Service {
      * @returns {Promise}
      */
     async listFlags(page?: number, limit?: number): Promise<TombaResponse> {
-        const path = "/flags";
+        const path = "/flag";
         const payload: Payload = {};
 
         if (typeof page !== "undefined") {
@@ -42,29 +42,48 @@ export class Flag extends Service {
      * Create a new email address flag.
      *
      * @see {@link https://docs.tomba.io/api/flag#create-flag | Create Flag API}
-     * @param {string} email
-     * @param {string} flag
+     * @param {string} flag_type
+     * @param {string} value
+     * @param {string} reason
+     * @param {string} comment
      * @throws {TombaException}
      * @returns {Promise}
      */
-    async createFlag(email: string, flag: string): Promise<TombaResponse> {
-        if (typeof email === "undefined") {
-            throw new TombaException('Missing required parameter: "email"');
+    async createFlag(
+        flag_type: string,
+        value: string,
+        reason: string,
+        comment?: string,
+    ): Promise<TombaResponse> {
+        if (typeof flag_type === "undefined") {
+            throw new TombaException('Missing required parameter: "flag_type"');
         }
 
-        if (typeof flag === "undefined") {
-            throw new TombaException('Missing required parameter: "flag"');
+        if (typeof value === "undefined") {
+            throw new TombaException('Missing required parameter: "value"');
         }
 
-        const path = "/flags";
+        if (typeof reason === "undefined") {
+            throw new TombaException('Missing required parameter: "reason"');
+        }
+
+        const path = "/flag";
         const payload: Payload = {};
 
-        if (typeof email !== "undefined") {
-            payload["email"] = email;
+        if (typeof flag_type !== "undefined") {
+            payload["flag_type"] = flag_type;
         }
 
-        if (typeof flag !== "undefined") {
-            payload["flag"] = flag;
+        if (typeof value !== "undefined") {
+            payload["value"] = value;
+        }
+
+        if (typeof reason !== "undefined") {
+            payload["reason"] = reason;
+        }
+
+        if (typeof comment !== "undefined") {
+            payload["comment"] = comment;
         }
 
         return await this.client.call("post", path, {

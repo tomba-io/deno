@@ -31,7 +31,7 @@ export class Reveal extends Service {
             throw new TombaException('Missing required parameter: "query"');
         }
 
-        const path = "/reveal";
+        const path = "/reveal/search";
         const payload: Payload = {};
 
         if (typeof query !== "undefined") {
@@ -46,7 +46,7 @@ export class Reveal extends Service {
             payload["limit"] = limit;
         }
 
-        return await this.client.call("get", path, {
+        return await this.client.call("post", path, {
             "content-type": "application/json",
         }, payload);
     }
