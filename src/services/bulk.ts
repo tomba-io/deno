@@ -5,9 +5,30 @@ import { TombaException } from "../exception.ts";
 /**
  * Valid bulk operation types.
  */
-export type BulkType = "search" | "similar" | "company" | "finder" | "enrich" | "linkedin" | "author" | "verifier" | "phone-finder" | "phone-validator";
+export type BulkType =
+    | "search"
+    | "similar"
+    | "company"
+    | "finder"
+    | "enrich"
+    | "linkedin"
+    | "author"
+    | "verifier"
+    | "phone-finder"
+    | "phone-validator";
 
-const VALID_BULK_TYPES: string[] = ["search", "similar", "company", "finder", "enrich", "linkedin", "author", "verifier", "phone-finder", "phone-validator"];
+const VALID_BULK_TYPES: string[] = [
+    "search",
+    "similar",
+    "company",
+    "finder",
+    "enrich",
+    "linkedin",
+    "author",
+    "verifier",
+    "phone-finder",
+    "phone-validator",
+];
 
 /**
  * Bulk
@@ -28,7 +49,9 @@ export class Bulk extends Service {
      */
     async list(type: BulkType): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
 
         const path = "/bulk/" + type;
@@ -51,7 +74,9 @@ export class Bulk extends Service {
      */
     async get(type: BulkType, id: string): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
         if (typeof id === "undefined") {
             throw new TombaException('Missing required parameter: "id"');
@@ -77,7 +102,9 @@ export class Bulk extends Service {
      */
     async create(type: BulkType, data: Payload): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
 
         const path = "/bulk/" + type;
@@ -100,7 +127,9 @@ export class Bulk extends Service {
      */
     async launch(type: BulkType, id: string): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
         if (typeof id === "undefined") {
             throw new TombaException('Missing required parameter: "id"');
@@ -126,7 +155,9 @@ export class Bulk extends Service {
      */
     async delete(type: BulkType, id: string): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
         if (typeof id === "undefined") {
             throw new TombaException('Missing required parameter: "id"');
@@ -152,7 +183,9 @@ export class Bulk extends Service {
      */
     async archive(type: BulkType, id: string): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
         if (typeof id === "undefined") {
             throw new TombaException('Missing required parameter: "id"');
@@ -179,7 +212,9 @@ export class Bulk extends Service {
      */
     async rename(type: BulkType, id: string, name: string): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
         if (typeof id === "undefined") {
             throw new TombaException('Missing required parameter: "id"');
@@ -213,7 +248,9 @@ export class Bulk extends Service {
      */
     async progress(type: BulkType, id: string): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
         if (typeof id === "undefined") {
             throw new TombaException('Missing required parameter: "id"');
@@ -239,7 +276,9 @@ export class Bulk extends Service {
      */
     async download(type: BulkType, id: string): Promise<TombaResponse> {
         if (!VALID_BULK_TYPES.includes(type)) {
-            throw new TombaException(`Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`);
+            throw new TombaException(
+                `Invalid bulk type: "${type}". Must be one of: ${VALID_BULK_TYPES.join(", ")}`,
+            );
         }
         if (typeof id === "undefined") {
             throw new TombaException('Missing required parameter: "id"');
